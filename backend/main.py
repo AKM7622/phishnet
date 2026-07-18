@@ -34,9 +34,12 @@ client = genai.Client(api_key=GEMINI_API_KEY)
 
 app = FastAPI(title="phishnet Engine API (Persistent Edition)")
 
+frontend_urls = os.getenv("FRONTEND_URL", "http://localhost:5173,http://127.0.0.1:5173")
+allowed_origins = [url.strip() for url in frontend_urls.split(",")]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  
+    allow_origins=allowed_origins,  
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
