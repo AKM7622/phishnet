@@ -256,15 +256,6 @@ async def scan_url_sandbox(request: UrlAnalysisRequest, db: Session = Depends(ge
     except Exception as e:
         return {"threat_score": 0, "verdict": "INVALID URL", "analysis_details": [f"DNS Resolution Failed: {str(e)}"], "screenshot": None, "network_map": []}
 
-    root_domain = parsed.netloc.lower().replace("www.", "")
-    trusted_domains = ["microsoft.com", "google.com", "apple.com", "amazon.com", "github.com", "wikipedia.org", "youtube.com", "linkedin.com"]
-    if root_domain in trusted_domains:
-        db_log = models.ScanLog(scan_type="url", target=target_url, threat_score=0, verdict="SAFE", analysis_details=json.dumps([f"Whitelisted root domain: {root_domain}"]))
-        db.add(db_log)
-        db.commit()
-        return {"threat_score": 0, "verdict": "SAFE", "analysis_details": [f"Deep Intel: '{root_domain}' is whitelisted."], "screenshot": None, "network_map": []}
-
-    
     vt_result = query_virustotal(target_url)
     if vt_result:
         # If VT caught it, log it to the local SQLite database and return instantly!
