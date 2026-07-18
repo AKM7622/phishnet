@@ -10,8 +10,11 @@ from urllib.parse import urlparse
 from typing import Optional
 import socket
 import ipaddress
+import time
+from collections import defaultdict
 
-from fastapi import FastAPI, File, UploadFile, Form, Depends
+from fastapi import FastAPI, File, UploadFile, Form, Depends, Request
+from fastapi.responses import JSONResponse
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from google import genai
@@ -38,6 +41,32 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
+
+RATE_LIMIT_DURATION = 60
+RATE_LIMIT_REQUESTS = 15
+request_counts = defaultdict(lambda: {"count": 0, "start_time": time.time()})
+
+@app.middleware("http")
+async def rate_limit_middleware(request: Request, call_next):
+    client_ip = request.client.host
+    now = time.time()
+    
+    if now - request_counts[client_ip]["start_time"] > RATE_LIMIT_DURATION:
+        request_counts[client_ip] = {"count": 1, "start_time": now}
+    else:
+        request_counts[client_ip]["count"] += 1
+        
+    if request_counts[client_ip]["count"] > RATE_LIMIT_REQUESTS:
+        return JSONResponse(
+            status_code=429,
+            content={
+                "detail": "Rate Limit Exceeded",
+                "message": f"You have exceeded the allowed {RATE_LIMIT_REQUESTS} requests per minute."
+            }
+        )
+        
+    response = await call_next(request)
+    return response
 
 class EmailAnalysisRequest(BaseModel):
     content: str

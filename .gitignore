@@ -59,4 +59,5 @@ playwright/.cache/
 # Local tests
 backend/test_injection.py
 backend/test_ssrf.py
+backend/test_ratelimit.py
 
