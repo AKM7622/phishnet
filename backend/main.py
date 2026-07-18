@@ -141,7 +141,7 @@ def query_gemini_threat_engine(payload: str, sender: str, context: str = "", net
             ]
 
         return {
-            "threat_score": 0,  # Set to 0 so it doesn't ruin your Home Dashboard KPIs
+            "threat_score": 100,  # Fail-closed security posture: escalate to human review on failure
             "verdict": "ERROR",
             "analysis_details": clean_details
         }
