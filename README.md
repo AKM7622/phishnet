@@ -1,7 +1,7 @@
 <div align="center">
   <img src="https://img.icons8.com/color/128/000000/security-checked--v1.png" alt="phishnet Logo" width="100"/>
 
-  # 🛡️ phishnet
+  # Phishnet
   
   **An Advanced, AI-Powered Cybersecurity Engine for Phishing Detection & Threat Analysis**
 
@@ -12,32 +12,32 @@
 
 phishnet is an enterprise-grade cybersecurity application built to preemptively detect, analyze, and neutralize phishing attempts. By orchestrating **Google Gemini 2.5 Flash**, **VirusTotal Threat Intelligence**, **Playwright Sandboxing**, and **Computer Vision**, phishnet acts as a comprehensive SOC (Security Operations Center) analyst automated in software.
 
-## 📑 Table of Contents
-- [✨ Core Capabilities](#-core-capabilities)
-- [🏗️ System Architecture](#-system-architecture)
-- [🛠️ Tech Stack](#-tech-stack)
-- [🚀 Getting Started](#-getting-started)
-- [⚙️ Environment Variables](#️-environment-variables)
-- [🐳 Running with Docker](#-running-with-docker)
-- [💻 Running Locally (Without Docker)](#-running-locally-without-docker)
-- [📡 API Documentation](#-api-documentation)
-- [🤝 Contributing](#-contributing)
-- [📝 License](#-license)
+## Table of Contents
+- [Core Capabilities](#core-capabilities)
+- [System Architecture](#system-architecture)
+- [Tech Stack](#tech-stack)
+- [Getting Started](#getting-started)
+- [Environment Variables](#environment-variables)
+- [Running with Docker](#running-with-docker)
+- [Running Locally (Without Docker)](#running-locally-without-docker)
+- [API Documentation](#api-documentation)
+- [Contributing](#contributing)
+- [License](#license)
 
 ---
 
-## ✨ Core Capabilities
+## Core Capabilities
 
-- 🧠 **AI-Powered Threat Engine**: Uses Gemini 2.5 Flash to contextually analyze emails and website payloads, understanding the nuanced differences between legitimate support requests and credential theft.
-- 👁️ **Computer Vision & OCR**: Employs PyTesseract, OpenCV, and PyZbar to extract hidden text and decode malicious QR codes or barcodes from image assets.
-- 🕸️ **Automated Browser Sandboxing**: Safely detonates suspicious URLs in a headless Playwright Chromium environment, capturing network requests, page contents, and visual screenshots without risking the host machine.
-- 🛡️ **Global Threat Intelligence**: Integrates directly with the VirusTotal v3 API to cross-reference URLs against dozens of global security vendors.
-- 💾 **Persistent Threat Logging**: Uses an SQLite database (via SQLAlchemy) to maintain a historical ledger of all intercepted threats, scores, and verdicts.
-- 🎨 **Modern Interface**: A lightning-fast, responsive dashboard built on React & Vite.
+- **AI-Powered Threat Engine**: Uses Gemini 2.5 Flash to contextually analyze emails and website payloads, understanding the nuanced differences between legitimate support requests and credential theft.
+- **Computer Vision & OCR**: Employs PyTesseract, OpenCV, and PyZbar to extract hidden text and decode malicious QR codes or barcodes from image assets.
+- **Automated Browser Sandboxing**: Safely detonates suspicious URLs in a headless Playwright Chromium environment, capturing network requests, page contents, and visual screenshots without risking the host machine.
+- **Global Threat Intelligence**: Integrates directly with the VirusTotal v3 API to cross-reference URLs against dozens of global security vendors.
+- **Persistent Threat Logging**: Uses an SQLite database (via SQLAlchemy) to maintain a historical ledger of all intercepted threats, scores, and verdicts.
+- **Modern Interface**: A lightning-fast, responsive dashboard built on React & Vite.
 
 ---
 
-## 🏗️ System Architecture
+## System Architecture
 
 1. **Client / Frontend**: React application that submits emails, URLs, or images for analysis.
 2. **FastAPI Gateway**: Handles incoming requests, enforces CORS, and coordinates the analysis pipeline.
@@ -53,7 +53,7 @@ phishnet is an enterprise-grade cybersecurity application built to preemptively 
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 ### Backend
 - **Framework**: Python 3, [FastAPI](https://fastapi.tiangolo.com/), Uvicorn
@@ -70,7 +70,7 @@ phishnet is an enterprise-grade cybersecurity application built to preemptively 
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 Before you begin, ensure you have the following installed:
@@ -81,7 +81,7 @@ Before you begin, ensure you have the following installed:
 
 ---
 
-## ⚙️ Environment Variables
+## Environment Variables
 
 Copy the provided example environment file to configure your secrets:
 
@@ -100,7 +100,7 @@ Open `.env` and configure the following:
 
 ---
 
-## 🐳 Running with Docker
+## Running with Docker
 
 The absolute easiest way to run phishnet without worrying about system dependencies (like installing Tesseract or Playwright browsers) is via Docker Compose.
 
@@ -115,7 +115,7 @@ The absolute easiest way to run phishnet without worrying about system dependenc
 
 ---
 
-## 💻 Running Locally (Without Docker)
+## Running Locally (Without Docker)
 
 If you wish to develop locally outside of Docker, you will need two terminal windows.
 
@@ -151,7 +151,7 @@ npm run dev
 
 ---
 
-## 📡 API Documentation
+## API Documentation
 
 When the backend is running, full OpenAPI documentation is automatically available at `/docs`. Below is a quick overview of the core endpoints:
 
@@ -164,7 +164,7 @@ When the backend is running, full OpenAPI documentation is automatically availab
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are what make the open-source community such an amazing place to learn, inspire, and create. Any contributions you make are **greatly appreciated**.
 
@@ -176,7 +176,7 @@ Contributions are what make the open-source community such an amazing place to l
 
 ---
 
-## 📝 License
+## License
 
 Distributed under the MIT License. See `LICENSE` for more information.
 
