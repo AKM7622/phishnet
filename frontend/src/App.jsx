@@ -359,6 +359,10 @@ function App() {
             {activeTab === 'qr' && (
               <div className="scanner-card">
                 <h3>👁️ Scan Vision (OCR/QR)</h3>
+                <p className="subtitle" style={{ marginBottom: '1.5rem', fontSize: '0.9rem' }}>
+                  Upload an image to extract hidden text or QR payloads.<br/>
+                  <strong>Criteria:</strong> Max 5MB, Max 4000x4000 pixels, valid image formats only.
+                </p>
                 {renderSenderInput()}
                 <div className="file-drop-area">
                   <input

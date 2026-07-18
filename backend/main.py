@@ -224,9 +224,26 @@ async def analyze_email(request: EmailAnalysisRequest, db: Session = Depends(get
 
 @app.post("/api/scan-image")
 async def scan_image(sender: Optional[str] = Form(""), file: UploadFile = File(...), db: Session = Depends(get_db)):
-    contents = await file.read()
+    MAX_FILE_SIZE = 5 * 1024 * 1024 # 5MB
+    
+    if file.content_type and not file.content_type.startswith("image/"):
+        return {"threat_score": 100, "verdict": "SUSPICIOUS", "analysis_details": ["SYSTEM HALT: Invalid MIME type. Upload an actual image."]}
+
+    contents = b""
+    while chunk := await file.read(1024 * 1024): # 1MB chunks
+        contents += chunk
+        if len(contents) > MAX_FILE_SIZE:
+            return {"threat_score": 100, "verdict": "SUSPICIOUS", "analysis_details": ["SYSTEM HALT: Image exceeds 5MB memory limit."]}
+
     nparr = np.frombuffer(contents, np.uint8)
     image = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+    
+    if image is None:
+        return {"threat_score": 100, "verdict": "SUSPICIOUS", "analysis_details": ["SYSTEM HALT: Image decoding failed. Possible corrupted file."]}
+        
+    height, width = image.shape[:2]
+    if height > 4000 or width > 4000:
+        return {"threat_score": 100, "verdict": "SUSPICIOUS", "analysis_details": ["SYSTEM HALT: Image dimensions exceed safe limits (4000x4000). Possible decompression bomb."]}
     
     extracted_text = ""
     vision_flags = "Image Analysis: "
