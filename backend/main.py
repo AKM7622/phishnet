@@ -8,6 +8,8 @@ import pytesseract
 from pyzbar.pyzbar import decode
 from urllib.parse import urlparse
 from typing import Optional
+import socket
+import ipaddress
 
 from fastapi import FastAPI, File, UploadFile, Form, Depends
 from fastapi.middleware.cors import CORSMiddleware
@@ -238,6 +240,21 @@ async def scan_url_sandbox(request: UrlAnalysisRequest, db: Session = Depends(ge
     parsed = urlparse(target_url)
     if not parsed.netloc or "." not in parsed.netloc:
         return {"threat_score": 0, "verdict": "INVALID URL", "analysis_details": ["URL appears incomplete."], "screenshot": None, "network_map": []}
+
+    hostname = parsed.hostname
+    try:
+        ip_addr = socket.gethostbyname(hostname)
+        ip_obj = ipaddress.ip_address(ip_addr)
+        if ip_obj.is_private or ip_obj.is_loopback or ip_obj.is_reserved or ip_obj.is_link_local:
+            return {
+                "threat_score": 100, 
+                "verdict": "SUSPICIOUS", 
+                "analysis_details": ["SYSTEM HALT: Target resolves to an internal network address (SSRF blocked)."], 
+                "screenshot": None, 
+                "network_map": []
+            }
+    except Exception as e:
+        return {"threat_score": 0, "verdict": "INVALID URL", "analysis_details": [f"DNS Resolution Failed: {str(e)}"], "screenshot": None, "network_map": []}
 
     root_domain = parsed.netloc.lower().replace("www.", "")
     trusted_domains = ["microsoft.com", "google.com", "apple.com", "amazon.com", "github.com", "wikipedia.org", "youtube.com", "linkedin.com"]
