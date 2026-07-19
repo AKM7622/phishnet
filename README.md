@@ -10,7 +10,7 @@
   ---
 </div>
 
-phishnet is an enterprise-grade cybersecurity application built to preemptively detect, analyze, and neutralize phishing attempts. By orchestrating **Google Gemini 2.5 Flash**, **VirusTotal Threat Intelligence**, **Playwright Sandboxing**, and **Computer Vision**, phishnet acts as a comprehensive SOC (Security Operations Center) analyst automated in software.
+phishnet is an enterprise-grade cybersecurity application built to preemptively detect, analyze, and neutralize phishing attempts. By orchestrating **Google Gemini 3.1 Flash-Lite**, **VirusTotal Threat Intelligence**, **Playwright Sandboxing**, and **Computer Vision**, phishnet acts as a comprehensive SOC (Security Operations Center) analyst automated in software.
 
 ## Table of Contents
 - [Core Capabilities](#core-capabilities)
@@ -28,7 +28,7 @@ phishnet is an enterprise-grade cybersecurity application built to preemptively 
 
 ## Core Capabilities
 
-- **AI-Powered Threat Engine**: Uses Gemini 2.5 Flash to contextually analyze emails and website payloads, understanding the nuanced differences between legitimate support requests and credential theft.
+- **AI-Powered Threat Engine**: Uses Gemini 3.1 Flash-Lite to contextually analyze emails and website payloads, understanding the nuanced differences between legitimate support requests and credential theft.
 - **Computer Vision & OCR**: Employs PyTesseract, OpenCV, and PyZbar to extract hidden text and decode malicious QR codes or barcodes from image assets.
 - **Automated Browser Sandboxing**: Safely detonates suspicious URLs in a headless Playwright Chromium environment, capturing network requests, page contents, and visual screenshots without risking the host machine.
 - **Global Threat Intelligence**: Integrates directly with the VirusTotal v3 API to cross-reference URLs against dozens of global security vendors.
@@ -48,7 +48,7 @@ phishnet is an enterprise-grade cybersecurity application built to preemptively 
    - Text/Email goes straight to the AI Threat Engine.
    - Images are processed via OpenCV/OCR to extract hidden payloads.
    - Unknown URLs are opened in Playwright to intercept background network traffic and scrape DOM contents.
-5. **AI Evaluation**: Scraped data, OCR text, and network maps are fed to Gemini 2.5 Flash, acting as a virtual SOC Analyst.
+5. **AI Evaluation**: Scraped data, OCR text, and network maps are fed to Gemini 3.1 Flash-Lite, acting as a virtual SOC Analyst.
 6. **Data Persistence**: The final Threat Score, Verdict, and Analysis Details are committed to the SQLite `scan_logs` table.
 
 ---
@@ -57,7 +57,7 @@ phishnet is an enterprise-grade cybersecurity application built to preemptively 
 
 ### Backend
 - **Framework**: Python 3, [FastAPI](https://fastapi.tiangolo.com/), Uvicorn
-- **AI/ML**: `google-genai` (Gemini 2.5 Flash)
+- **AI/ML**: `google-genai` (Gemini 3.1 Flash-Lite)
 - **Computer Vision**: OpenCV (`opencv-python-headless`), PyTesseract (OCR), PyZbar (QR/Barcode)
 - **Automation**: Playwright (Async Headless Chromium)
 - **Database**: SQLite & SQLAlchemy (ORM)
