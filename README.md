@@ -178,7 +178,7 @@ Contributions are what make the open-source community such an amazing place to l
 
 ## License
 
-Distributed under the MIT License. See `LICENSE` for more information.
+Distributed under the MIT License. See [LICENSE](https://github.com/AKM7622/phishnet/blob/main/LICENSE) for more information.
 
 <div align="center">
   <i>Defending the web, one byte at a time.</i>
